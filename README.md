@@ -1,6 +1,4 @@
 # dasher
-a compiler for D.A.S.H.
-D.A.S.H. is a 8 bit cpu ment for bigginers as i dont think any one is goan program in binary i made this Dasher a asm like thing for dash
+a compiler for dash
 
-DOCS
-get the docs each at differ ver
+D.A.S.H. is a 8 bit cpu that is easy to under stand and use but no one like binary so i made a compiler for a asm like language i call dasher
