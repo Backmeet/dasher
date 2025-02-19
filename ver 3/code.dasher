@@ -1,0 +1,7 @@
+var, new, xy, 0
+var, new, value, 0
+var, new, true, 1
+rnd, xy
+rnd, value
+draw, xy, value
+while, 4, true

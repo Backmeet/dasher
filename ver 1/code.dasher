@@ -1,0 +1,7 @@
+var, new, a, 0
+var, new, b, 1
+
+dout, a
+var, copy, a, b
+var, math, a, +, b, b 
+jmp, 4

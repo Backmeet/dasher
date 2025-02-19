@@ -1,0 +1,114 @@
+DASHER - a assmbley like lauguage for D.A.S.H
+
+
+1. var
+    a. new
+        • Syntax: var, new, <name>, <value>
+        • <name>: The identifier for the new variable.
+        • <value>: The initial numeric value for the variable (provided in decimal; it will be converted to a 16‑bit binary number).
+        • Purpose: Creates a new variable.
+        • What it does: Allocates a new 16‑bit address for the variable and sets its initial value.
+
+    b. remove
+        • Syntax: var, remove, <name>
+            -> <name>: The identifier of the variable to delete.
+        • Purpose: Deletes a variable.
+        • What it does: Frees the variable’s allocated address using the deallocate function and logs a deallocation message (no direct machine code is generated).
+
+    c. set
+        • Syntax: var, set, <name>, <immediate_value>
+            -> <name>: The identifier of an existing variable.
+            -> <immediate_value>: A literal number to assign to the variable (converted to a 16‑bit binary number).
+        • Purpose: Sets a variable to an immediate (literal) value.
+        • What it does: Verifies the variable exists, then generates instructions to load its address and the immediate value.
+
+    d. copy
+        • Syntax: var, copy, <source_name>, <target_name>
+            -> <target_name>: The variable that will receive the new value.
+            -> <source_name>: The variable whose value will be copied.
+        • Purpose: Copies the value from one variable to another.
+        • What it does: Checks that both variables exist, then generates instructions to transfer the source variable’s value to the target variable.
+
+    e. math
+        • Syntax (Single-variable operations): var, math, <var>, <operator>, <destination>
+        • Syntax (Two-variable operations): var, math, <var1>, <operator>, <var2>, <destination>
+            -> <var>: The variable on which the operation is performed (for single-variable ops).
+            -> <operator>: The arithmetic or bitwise operator (e.g., >>>, <<<, ++, --, +, -, *, /, %, &, ~, ^, >, <, ==).
+            -> <destination>: The variable where the result will be stored.
+            -> <var1>: The first var (for Two-variable ops).
+            -> <var2>: The first var (for Two-variable ops).
+        • Purpose: Performs arithmetic or bitwise operations.
+        • What it does:
+        • For single-variable operations: Uses a temporary variable for intermediate storage, then performs the operation and stores the result.
+        • For two-variable operations: Loads the operands, uses a predefined mapping (opreationToBin) to convert the operator to a binary opcode, and stores the result.
+
+2. draw
+    • Purpose: Likely used for rendering or displaying data.
+    • What it does: Generates instructions to perform a drawing operation using values from two variables.
+    • Syntax: draw, <var1>, <var2>
+        -> <var1> & <var2>: The two variables whose values are used in the drawing operation.
+
+3. rnd
+    • Purpose: Generates a random number.
+    • What it does: Assigns a random binary number to a variable.
+    • Syntax: rnd, <var>
+        -> <var>: The variable that will receive the random number.
+
+4. http
+    b. get
+        • Syntax: http, get, <var>
+            -> <var>: The variable where the GET request result is stored.
+        • Purpose: Performs an HTTP GET request.
+        • What it does: Verifies the variable exists and generates an instruction to execute the GET request and store its result.
+
+    b. post
+        • Syntax: http, post, <data_var>, <response_var>
+            -> <data_var>: The variable containing data to send.
+            -> <response_var>: The variable to store the HTTP response.
+        • Purpose: Performs an HTTP POST request.
+        • What it does: Checks both variables exist and generates instructions to post data and handle the response.
+
+5. io
+    • Purpose: Manages input/output operations.
+    • What it does: Generates instructions for I/O operations on a specified port using a variable’s value.
+    • Syntax: io, <var>, <port>
+        -> <var>: The variable involved in the I/O operation.
+        -> <port>: A port number (must be between 1 and 4).
+
+6. exec
+    • Purpose: Executes raw binary code.
+    • What it does: Inserts provided binary code directly into the machine code instruction stream if it matches the expected format.
+    • Syntax: exec, <binary_code>
+        -> <binary_code>: A string representing binary code in the expected format (e.g., a combination of 8 to 16 binary digits, a space, and 4 binary digits).
+
+7. while
+    • Purpose: loop with var as expression
+    • What it does: it takes in a expression for any var and jumps to the start of the block's line if true (should be place after the code block)
+    • Syntax: while, <var>, startOfBlockLine
+        -> <var>: var to be checked like a boolen  
+        -> startOfBlockLine: loop's code block start line 
+
+8. if
+    • Purpose: Jump with var as expression
+    • What it does: it takes in a expression for any math opreation and jumps to the line if true (should be place before the code block)
+    • Syntax: if, <var>, EndOfBlockLine
+        -> <var>: var to be checked like a boolen  
+        -> EndOfBlockLine: line at which the code block for the if ends 
+
+11. forever
+    • Purpose: loops forever 
+    • What it does: it takes in a expression for any var and jumps to the start of the block's line if true (should be place after the code block)
+    • Syntax: while, <var>, startOfBlockLine
+        -> <var>: var to be checked like a boolen  
+        -> startOfBlockLine: loop's code block start line 
+
+12. log
+    • Purpose: logs the value of a variable, likely for debugging.
+    • What it does: Generates an instruction that sends the variable’s value to an output reg.
+    • Syntax: log, <var>
+        -> <var>: The variable whose value is to be output.
+
+13. hlt
+    • Purpose: halts the cpu
+    • What it does: Generates an instruction that halts the cpu.
+    • Syntax: hlt
